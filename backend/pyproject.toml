@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "backend"
+version = "0.1.0"
+description = "EC VH Counter Backend"
+authors = ["Jett Chen <jettchen12345@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.103.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
