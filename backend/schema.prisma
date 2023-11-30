@@ -1,0 +1,27 @@
+datasource db {
+  // could be postgresql or mysql
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator db {
+  provider             = "prisma-client-py"
+  interface            = "asyncio"
+  recursive_type_depth = 5
+}
+
+model User {
+  id         String   @id @default(cuid())
+  username   String   @unique
+  password   String
+  is_admin   Boolean  @default(false)
+  logs       VhLog[]
+}
+
+model VhLog {
+    id Int @id @default(autoincrement())
+    start DateTime
+    end DateTime
+    userId String
+    user User @relation(fields: [userId], references: [id])
+}
