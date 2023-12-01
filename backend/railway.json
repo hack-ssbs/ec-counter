@@ -1,7 +1,8 @@
 {
     "$schema": "https://railway.app/railway.schema.json",
     "build": {
-      "builder": "NIXPACKS"
+      "builder": "NIXPACKS",
+      "buildCommand": "prisma generate"
     },
     "deploy": {
       "startCommand": "uvicorn src.main:app --host 0.0.0.0 --port $PORT",
