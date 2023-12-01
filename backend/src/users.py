@@ -1,6 +1,11 @@
+"""
+This module contains the user authentication related functions.
+"""
+
+
 SALT = "..."
 
-def hash_password(pw):
+def hash_password(pw) -> str:
     """
     hash the password with bcrypt
     """
