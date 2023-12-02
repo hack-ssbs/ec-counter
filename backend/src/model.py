@@ -22,8 +22,10 @@ async def query_users(db: Prisma):
 
 async def tst_main():
     db = Prisma()
+    await db.connect()
     users = await query_users(db)
     print(users)
+    await db.disconnect()
 
 if __name__ == "__main__":
     asyncio.run(tst_main())
