@@ -21,7 +21,7 @@ saltRounds = 10
 myPlaintextPassword = 's0/\/\P4$$w0rD'
 someOtherPlaintextPassword = 'not_bacon'
 
-SALT = "aoisdnhfsandsfasd".encode()
+#SALT = "aoisdnhfsandsfasd".encode()
 
 def hash_password(pw: str) -> str:
     """
@@ -30,21 +30,34 @@ def hash_password(pw: str) -> str:
 
     hsh = bcr.hashpw(pw.encode(),bcr.gensalt())
 
-    return str(hsh)
+    return hsh
+    # for string output testing
+    # write line 33 (line above) as "return str(hsh)"
 
 def verify_password(pw, hash):
     """
     verify the password with bcrypt
     """
-    pass
+    if bcr.checkpw(pw.encode(), hash):
+        print("match")
+        return
+    print("not match")
+    return
+
 
 def user_signin(name, password) -> str:
     """
     signs in the user and returns a jwt token
     """
-    pass
+
+
+
 
 if __name__ == "__main__":
 
-    hsh = hash_password(myPlaintextPassword)
-    print(hsh)
+    #hsh = hash_password(myPlaintextPassword)
+    #print(hsh)
+    verify_password(myPlaintextPassword,hash_password(myPlaintextPassword))
+    verify_password(myPlaintextPassword,hash_password(someOtherPlaintextPassword))
+
+
