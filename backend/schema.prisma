@@ -23,5 +23,6 @@ model VhLog {
     start DateTime
     end DateTime
     userId String
+    description String?
     user User @relation(fields: [userId], references: [id])
 }
