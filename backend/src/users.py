@@ -39,9 +39,9 @@ def verify_password(pw, hash):
     verify the password with bcrypt
     """
     if bcr.checkpw(pw.encode(), hash):
-        print("match")
+        print("match") # Matching password, unsure about output
         return
-    print("not match")
+    print("not match") # Not matching
     return
 
 
