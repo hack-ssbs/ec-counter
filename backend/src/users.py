@@ -16,12 +16,8 @@ from jwt import (
 )
 from jwt.utils import get_int_from_datetime
 
-#bcrypt = require('bcrypt')
 saltRounds = 10
-myPlaintextPassword = 's0/\/\P4$$w0rD'
-someOtherPlaintextPassword = 'not_bacon'
 
-#SALT = "aoisdnhfsandsfasd".encode()
 
 def hash_password(pw: str) -> str:
     """
@@ -34,21 +30,18 @@ def hash_password(pw: str) -> str:
     # for string output testing
     # write line 33 (line above) as "return str(hsh)"
 
-def verify_password(pw, hash):
+def verify_password(pw, hash) -> bool:
     """
     verify the password with bcrypt
     """
-    if bcr.checkpw(pw.encode(), hash):
-        print("match") # Matching password, unsure about output
-        return
-    print("not match") # Not matching
-    return
+    return bcr.checkpw(pw.encode(), hash)
 
 
 def user_signin(name, password) -> str:
     """
     signs in the user and returns a jwt token
     """
+    pass
 
 
 
@@ -57,6 +50,8 @@ if __name__ == "__main__":
 
     #hsh = hash_password(myPlaintextPassword)
     #print(hsh)
+    myPlaintextPassword = 's0/\/\P4$$w0rD'
+    someOtherPlaintextPassword = 'not_bacon'
     verify_password(myPlaintextPassword,hash_password(myPlaintextPassword))
     verify_password(myPlaintextPassword,hash_password(someOtherPlaintextPassword))
 
