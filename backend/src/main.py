@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from prisma import Prisma
 from contextlib import asynccontextmanager
-from .model import query_users
+from .model import query_users, create_user
+from .auth import hash_password, encode_jwt
+from .model import get_user
+
 
 db = Prisma()
 
@@ -31,3 +34,22 @@ async def users():
         "is_admin": user.is_admin
     }, users))
     return resp
+
+@app.post("/register")
+async def register(name: str, password: str):
+    hashed_pw = hash_password(password)
+    await create_user(db, name, hashed_pw)
+    return {"msg":"ok"}
+
+@app.get("/login")
+async def login(name: str, password: str):
+        """
+        signs in the user and returns a jwt token
+        """
+        user = get_user(db, name, hash_password(password))
+        if user is None:
+            return {"msg": "failed"}
+        else:
+            return encode_jwt(user)
+
+
