@@ -21,8 +21,9 @@ model User {
 model VhLog {
     id Int @id @default(autoincrement())
     start DateTime
-    end DateTime
+    end DateTime?
     userId String
     description String?
     user User @relation(fields: [userId], references: [id])
+    verified Boolean @default(false)
 }
