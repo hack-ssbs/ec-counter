@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from prisma import Prisma
 from contextlib import asynccontextmanager
-from .model import create_user, query_users
+from .model import query_users
 
 db = Prisma()
 

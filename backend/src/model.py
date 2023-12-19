@@ -7,6 +7,7 @@ Also note that we use the `await` keyword to wait for the database operations to
 
 import asyncio
 from prisma import Prisma
+from prisma.models import User
 
 async def create_user(db: Prisma, name: str, password: str):
     # Note: do not pass the password as a plain text, preprocess it with bcrypt
@@ -19,6 +20,12 @@ async def create_user(db: Prisma, name: str, password: str):
 async def query_users(db: Prisma):
     users = await db.user.find_many()
     return users
+
+async def get_user(db: Prisma, user_id:str, password:str) -> User | None:
+    return db.user.find_unique(where={
+        "id": user_id,
+        "password": password
+    })
 
 async def tst_main():
     db = Prisma()
