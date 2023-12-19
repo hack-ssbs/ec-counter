@@ -1,0 +1,42 @@
+.sidebar{
+    height:100%;
+    width: 200px;
+    position:absolute;
+    background-color:aquamarine;
+}
+.sidebarList{
+    height: auto;
+    width: 100%;
+    padding: 0%;
+}
+.row{
+    width:100%;
+    height: 50px;;
+    border: 1px solid white;
+    list-style-type: none;
+    margin:0%;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.row:hover{
+    cursor: pointer;
+    background-color: cadetblue;
+}
+#active{
+    background-color: cadetblue;
+}
+.icon{
+    flex:30%;
+    display: grid;
+    place-items: center;
+
+}
+.title{
+    flex:70%;
+    
+
+}

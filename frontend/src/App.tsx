@@ -1,19 +1,15 @@
-import { useState } from 'react'
-import './App.css'
+// RouterComponent.tsx
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginForm from './login';
+import Timer from './Timer';
 
-function App() {
-  const [count, setCount] = useState(0)
+import './App.css';
 
-  return (
-    <div>
-      <h1 className="text-3xl font-bold text-blue-500 underline">
-        Hi there
-      </h1>
-      <button onClick={() => setCount(count+1)}>
-        Click me: {count}
-      </button>
-    </div>
+function App(){
+  return(
+    <div></div>
   )
 }
 
-export default App
+export default App;
