@@ -1,11 +1,8 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import Login from './login.tsx'
-import Timer from './Timer.tsx'
-import Bar from './components/sidebar.tsx';
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <div>
-    <Bar />
-  </div>,
-)
+    <App />
+  </div>
+);
