@@ -27,11 +27,18 @@ async def get_user(db: Prisma, username:str, password:str) -> User | None:
         "password": password
     })
 
+async def set_admin(db: Prisma, username: str) -> bool:
+    res = await db.user.update(
+        {'is_admin': True},
+        where={'username': username}
+    )
+    return res is not None
+
 async def tst_main():
     db = Prisma()
     await db.connect()
-    users = await query_users(db)
-    print(users)
+    res = await set_admin(db, "jettchen")
+    print(res)
     await db.disconnect()
 
 if __name__ == "__main__":
