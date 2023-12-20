@@ -34,14 +34,6 @@ def verify_password(pw, hash) -> bool:
     return bcr.checkpw(pw.encode(), hash)
 
 
-def user_signin(name: str, password:str) -> str:
-    """
-    signs in the user and returns a jwt token
-    """
-    user = get_user(name, hash_password(password))
-    # Do something with this...
-    pass
-
 def encode_jwt(usr: User):
     return jwt.encode(
         {"user_id": usr.id, "is_admin": usr.is_admin},
