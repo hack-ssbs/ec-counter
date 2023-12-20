@@ -4,7 +4,7 @@ import { SidebarData } from "./SidebarData";
 
 function Bar() {
   return (
-    <div className="sidebar flex-1">
+    <div className="sidebar basis-1/4 h-screen">
       <ul className="sidebarList">
         {SidebarData.map((val, key) => {
           return (
