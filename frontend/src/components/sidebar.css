@@ -1,22 +1,20 @@
 .sidebar{
-
     height:100%;
     width: 200px;
     position:relative;
-    background-color:aquamarine;
     display: flex;
+    background-color: rgba(57, 88, 69, 0.7);
 }
 .sidebarList{
     height: auto;
     width: 100%;
-    padding: 0%;
+    @apply p-2
 }
 .row{
     width:100%;
-    height: 50px;;
-    border: 1px solid white;
+    height: 50px;
+    @apply p-5 rounded-lg my-3;
     list-style-type: none;
-    margin:0%;
     display: flex;
     flex-direction: row;
     color: white;
@@ -24,13 +22,16 @@
     align-items: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+
 .row:hover{
     cursor: pointer;
-    background-color: cadetblue;
+    background-color: rgba(57, 88, 69, 0.2);
 }
-#active{
-    background-color: cadetblue;
+
+.row.active, .row.active:hover {
+    background-color: rgba(57, 88, 69, 0.5);
 }
+
 .icon{
     flex:30%;
     display: grid;
@@ -39,6 +40,4 @@
 }
 .title{
     flex:70%;
-    
-
 }
