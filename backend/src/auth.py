@@ -13,17 +13,17 @@ from fastapi import HTTPException, status
 from .model import get_user
 
 saltRounds = 10
-JWT_SECRET = os.getenv("JWT_SECRET") | "JWT_SECRET_FOR_TESTING"
-API_KEY = os.getenv("API_KEY") | "API_KEY_FOR_TESTING"
+JWT_SECRET = os.getenv("JWT_SECRET") or "JWT_SECRET_FOR_TESTING"
+API_KEY = os.getenv("API_KEY") or "API_KEY_FOR_TESTING"
+HASH_SALT = b'$2b$12$2ixtqK6nsdub0jBh5hoFlu'
 
 def hash_password(pw: str) -> str:
     """
     hash the password with bcrypt
     """
 
-    hsh = bcr.hashpw(pw.encode(),bcr.gensalt())
-
-    return hsh
+    hsh = bcr.hashpw(pw.encode(),HASH_SALT)
+    return hsh.decode()
     # for string output testing
     # write line 33 (line above) as "return str(hsh)"
 

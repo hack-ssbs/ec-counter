@@ -21,9 +21,9 @@ async def query_users(db: Prisma):
     users = await db.user.find_many()
     return users
 
-async def get_user(db: Prisma, user_id:str, password:str) -> User | None:
-    return db.user.find_unique(where={
-        "id": user_id,
+async def get_user(db: Prisma, username:str, password:str) -> User | None:
+    return await db.user.find_first(where={
+        "username": username,
         "password": password
     })
 

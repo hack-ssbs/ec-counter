@@ -46,7 +46,7 @@ async def login(name: str, password: str):
         """
         signs in the user and returns a jwt token
         """
-        user = get_user(db, name, hash_password(password))
+        user = await get_user(db, name, hash_password(password))
         if user is None:
             return {"msg": "failed"}
         else:
