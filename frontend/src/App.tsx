@@ -8,9 +8,9 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row w-screen pr-10 pl-2">
       <Bar />
-      <div className="flex-1">
+      <div className="flex-1 ml-5">
         {(window.location.href.endsWith("/timer") ||
           window.location.href.endsWith("/")) && <Timer />}
         {window.location.href.endsWith("/account") && <LoginForm />}
