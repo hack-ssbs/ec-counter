@@ -6,15 +6,15 @@ export const SidebarData= [
     {
        title:"Home",
        icon :<HomeIcon/>,
-       link:"/home",
+       link:"/",
     },
     {
-        title:"timer",
+        title:"Timer",
         icon :<TimerIcon/>,
         link:"/timer",
      },
      {
-        title:"account",
+        title:"Account",
         icon :<AccountCircleIcon/>,
         link:"/account",
      },

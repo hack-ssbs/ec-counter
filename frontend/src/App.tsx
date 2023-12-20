@@ -8,7 +8,7 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="flex flex-row w-screen pr-10 pl-2">
+    <div className="flex flex-row w-screen pr-10">
       <Bar />
       <div className="flex-1 ml-5">
         {(window.location.href.endsWith("/timer") ||
