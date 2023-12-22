@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './login.css'
 
 // interface LoginFormProps {
@@ -8,31 +8,32 @@ import './login.css'
 
 
 const LoginForm: React.FC = () => {
-  const login = document.getElementById("login") as HTMLElement;
-  const register = document.getElementById("register") as HTMLElement;
-  const form_box = document.getElementsByClassName("form-box")[0] as HTMLElement;
-  const register_box = document.getElementsByClassName("register-form")[0] as HTMLElement;
-  const login_box = document.getElementsByClassName("login-form")[0] as HTMLElement;
+  useEffect(() => {
+    const login = document.getElementById("login") as HTMLElement;
+    const register = document.getElementById("register") as HTMLElement;
+    const form_box = document.getElementsByClassName("form-box")[0] as HTMLElement;
+    const register_box = document.getElementsByClassName("register-form")[0] as HTMLElement;
+    const login_box = document.getElementsByClassName("login-form")[0] as HTMLElement;
+    register.addEventListener("click", () => {
+        if (form_box && login_box && register_box) {
+            form_box.style.transform = "translateX(80%)";
+            login_box.classList.add("hidden");
+            register_box.classList.remove("hidden");
+        }
+    });
 
-  register.addEventListener("click", () => {
-      if (form_box && login_box && register_box) {
-          form_box.style.transform = "translateX(80%)";
-          login_box.classList.add("hidden");
-          register_box.classList.remove("hidden");
-      }
-  });
-
-  login.addEventListener("click", () => {
-      if (form_box && login_box && register_box) {
-          form_box.style.transform = "translateX(0%)";
-          register_box.classList.add("hidden");
-          login_box.classList.remove("hidden");
-      }
-  });
+    login.addEventListener("click", () => {
+        if (form_box && login_box && register_box) {
+            form_box.style.transform = "translateX(0%)";
+            register_box.classList.add("hidden");
+            login_box.classList.remove("hidden");
+        }
+    });
+  }, []);
 
   return (
     <div>
-      <div className="container">
+      <div className="container mt-32">
 
         <div className="form-box">
 
