@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from prisma import Prisma
 from contextlib import asynccontextmanager
+from fastapi.middleware.cors import CORSMiddleware
 from .model import query_users, create_user
 from .auth import hash_password, encode_jwt
 from .model import get_user
@@ -15,6 +16,23 @@ async def lifespan(_app: FastAPI):
     await db.disconnect()
 
 app = FastAPI(lifespan=lifespan)
+
+origins = [
+    "http://localhost.tiangolo.com",
+    "https://ecvh.ssbs.club",
+    "http://localhost",
+    "http://localhost:8080",
+    "http://localhost:*",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.get("/")
 async def root():
