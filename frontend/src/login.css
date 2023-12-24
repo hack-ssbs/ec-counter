@@ -6,10 +6,7 @@
 body
 {
     height: 100vh;
-    /* background-repeat: repeat; */
-    /* background-image: linear-gradient(45deg, #1870ed 0, #f18f88 100%); */
     background-color: #f2f1ed;
-
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -17,7 +14,7 @@ body
 
 }
 
-.container{
+.logincontainer{
     background-color: #fff;
     width: 650px;
     height: 415px;
@@ -43,8 +40,8 @@ body
 }
 
 .register-form{
-  width: 290px;
-  height: 290px;
+  width: 400px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   padding: 40px;
@@ -88,21 +85,13 @@ h3{
     letter-spacing: 0.1em;
 }
 
-input {
-  margin: 5px 0;
-  margin-top: 5px;
-  height: 43px;
-  font-size: 1em;
-  border: none;
-  background-color: transparent;
-  border-radius: 4px;
-  padding: 0 14px;
-  color: #ffffff;
+.field {
+  @apply bg-transparent mt-2 border border-green-800 border-opacity-50 rounded-md py-2 px-4 block w-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-white
 }
 
-input::placeholder {
-  color: #3d5245;
+.field::placeholder {
   opacity: 70%;
+  @apply text-gray-300
 }
 
 
@@ -124,11 +113,10 @@ input:focus {
   cursor: pointer;
   transition: 0.4s;
   letter-spacing: 2px;
+  color: black;
 }
 
 .register-form button {
-  margin-top: 24px;
-  margin-bottom: -20px;
   background-color: white;
   border:none;
   border-radius: 4px;
@@ -137,10 +125,11 @@ input:focus {
   color: rgba(57, 88, 69, 0.4);
   font-weight: 500;
   position: center;
-  overflow: hidden;
   cursor: pointer;
   transition: 0.4s;
   letter-spacing: 2px;
+  margin-top: 20px;
+  color: black;
 }
 
 .login-form button:hover {
@@ -164,10 +153,10 @@ input:focus {
     top: 50%;
     transform: translateY(-50%);
 }
-.container .left{
+.logincontainer .left{
     left: -2%;
 }
-.container .right{
+.logincontainer .right{
     right: -2%;
 }
 .con-box h2{

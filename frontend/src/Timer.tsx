@@ -37,6 +37,10 @@ useEffect(() => {
   return () => clearInterval(intervalId);
 }, [isRunning, timerSeconds, timerMinutes]);
 
+if(localStorage.getItem("jwt") === null){
+  window.location.href = "/account";
+}
+
   return (
     <div>
       <h2 className='text-2xl text-black'>Energy Club</h2> 
