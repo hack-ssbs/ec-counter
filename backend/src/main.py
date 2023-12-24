@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from prisma import Prisma
 from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import HTTPException, status
 from .model import query_users, create_user
 from .auth import hash_password, encode_jwt
 from .model import get_user
@@ -22,7 +23,7 @@ origins = [
     "https://ecvh.ssbs.club",
     "http://localhost",
     "http://localhost:8080",
-    "http://localhost:*",
+    "http://localhost:5173",
 ]
 
 app.add_middleware(
@@ -66,8 +67,8 @@ async def login(name: str, password: str):
         """
         user = await get_user(db, name, hash_password(password))
         if user is None:
-            return {"msg": "failed"}
+            raise HTTPException(status.HTTP_401_UNAUTHORIZED, "No user with matching username and password found.")
         else:
-            return encode_jwt(user)
+            return {"jwt": encode_jwt(user)}
 
 

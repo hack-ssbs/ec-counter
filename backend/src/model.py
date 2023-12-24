@@ -8,14 +8,19 @@ Also note that we use the `await` keyword to wait for the database operations to
 import asyncio
 from prisma import Prisma
 from prisma.models import User
+from prisma.errors import UniqueViolationError
+from fastapi import HTTPException, status
 
 async def create_user(db: Prisma, name: str, password: str):
     # Note: do not pass the password as a plain text, preprocess it with bcrypt
-    user = await db.user.create({
-        "username": name,
-        "password": password
-    })
-    return user
+    try:
+        user = await db.user.create({
+            "username": name,
+            "password": password
+        })
+        return user
+    except UniqueViolationError:
+        raise HTTPException(status.HTTP_409_CONFLICT, "A user with such username already exists.")
 
 async def query_users(db: Prisma):
     users = await db.user.find_many()
