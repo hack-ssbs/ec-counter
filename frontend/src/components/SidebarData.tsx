@@ -4,14 +4,9 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import TimerIcon from '@material-ui/icons/Timer';
 export const SidebarData= [
     {
-       title:"Home",
-       icon :<HomeIcon/>,
-       link:"/",
-    },
-    {
         title:"Timer",
         icon :<TimerIcon/>,
-        link:"/timer",
+        link:"/",
      },
      {
         title:"Account",
