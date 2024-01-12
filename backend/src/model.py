@@ -6,10 +6,40 @@ Also note that we use the `await` keyword to wait for the database operations to
 """
 
 import asyncio
+import datetime
 from prisma import Prisma
 from prisma.models import User
+from prisma.models import VhLog
 from prisma.errors import UniqueViolationError
 from fastapi import HTTPException, status
+
+async def query_logs(db: Prisma):
+    logs=await db.vhlog.find_many()
+    return logs
+
+async def log_exists(db: Prisma, start: str, end: str, userId: str, description: str) ->bool:
+    existing_log = await db.vhlog.find_first(
+        where={
+            "start": start,
+            "end": end,
+            "userId": userId,
+            "description": description
+        }
+    )
+    return existing_log is not None
+
+async def create_log(db: Prisma, start: str, end: str, userId: str, description: str, verified: bool) -> VhLog:
+    if await log_exists(db, start, end, userId, description):
+        raise HTTPException(status.HTTP_409_CONFLICT, "Log already exists.")
+    else:
+        log = await db.vhlog.create({
+            "start": start,
+            "end": end,
+            "userId": userId,
+            "description": description,
+            "verified": verified
+        })
+        return log
 
 async def create_user(db: Prisma, name: str, password: str):
     # Note: do not pass the password as a plain text, preprocess it with bcrypt
