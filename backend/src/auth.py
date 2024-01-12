@@ -54,7 +54,12 @@ def decode_jwt(encoded: str) -> (str, bool):
 
 
 if __name__ == "__main__":
-    myPlaintextPassword = 's0/\/\P4$$w0rD'
-    someOtherPlaintextPassword = 'not_bacon'
-    verify_password(myPlaintextPassword,hash_password(myPlaintextPassword))
-    verify_password(myPlaintextPassword,hash_password(someOtherPlaintextPassword))
+    # myPlaintextPassword = 's0/\/\P4$$w0rD'
+    # someOtherPlaintextPassword = 'not_bacon'
+    # verify_password(myPlaintextPassword,hash_password(myPlaintextPassword))
+    # verify_password(myPlaintextPassword,hash_password(someOtherPlaintextPassword))
+    # myUser = User(id="clrbhcufh0000rkdc9ohkjaso", username="Claire Zhao", password = "123456",is_admin = True)
+    # myUser = User(id="clpl728xq0000phw0gzspt2y4", username="test", password = "test",is_admin = False)
+    # myEncUserID = encode_jwt(myUser)
+    # print(myEncUserID)
+    pass
