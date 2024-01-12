@@ -58,7 +58,7 @@ async def logs():
     return resp
 
 @app.post("/addlog")
-async def addlog(userID: str, start: str, end: str = datetime.datetime.utcnow().replace(microsecond=0, tzinfo=datetime.timezone.utc).isoformat(), description: str  = "N/A", verified: bool = False):
+async def addlog(userID: str,  end: str|None=None, start: str = datetime.datetime.utcnow().replace(microsecond=0, tzinfo=datetime.timezone.utc).isoformat(), description: str  = "N/A", verified: bool = False):
     await create_log(db, start, end, userID, description, verified)
     return {"msg" : "addlogsuccess"}
 
