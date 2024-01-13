@@ -17,8 +17,21 @@ async def query_logs(db: Prisma):
     logs=await db.vhlog.find_many()
     return logs
 
+async def log_exists(db: Prisma, start: str, end: str, userId: str, description: str) ->bool:
+    existing_log = await db.vhlog.find_first(
+        where={
+            "start": start,
+            "end": end,
+            "userId": userId,
+            "description": description
+        }
+    )
+    return existing_log is not None
+
 async def create_log(db: Prisma, start: str, end: str, userId: str, description: str, verified: bool) -> VhLog:
-    try:
+    if await log_exists(db, start, end, userId, description):
+        raise HTTPException(status.HTTP_409_CONFLICT, "Log already exists.")
+    else:
         log = await db.vhlog.create({
             "start": start,
             "end": end,
@@ -27,8 +40,6 @@ async def create_log(db: Prisma, start: str, end: str, userId: str, description:
             "verified": verified
         })
         return log
-    except UniqueViolationError:
-        raise HTTPException(status.HTTP_409_CONFLICT, "Log already exists.")
 
 async def create_user(db: Prisma, name: str, password: str):
     # Note: do not pass the password as a plain text, preprocess it with bcrypt

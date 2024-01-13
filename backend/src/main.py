@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import HTTPException, status
 from .model import query_users, create_user, query_logs, create_log
-from .auth import hash_password, encode_jwt
+from .auth import hash_password, encode_jwt, decode_jwt
 from .model import get_user
 import datetime
 
@@ -58,9 +58,14 @@ async def logs():
     return resp
 
 @app.post("/addlog")
-async def addlog(userID: str,  end: str|None=None, start: str = datetime.datetime.utcnow().replace(microsecond=0, tzinfo=datetime.timezone.utc).isoformat(), description: str  = "N/A", verified: bool = False):
-    await create_log(db, start, end, userID, description, verified)
-    return {"msg" : "addlogsuccess"}
+async def addlog(userID: str,  end: str|None=None, start: str = datetime.datetime.utcnow().replace(microsecond=0, tzinfo=datetime.timezone.utc).isoformat(), description: str  = "N/A"):
+    tmp=decode_jwt(userID)
+    if(tmp[1] == True):
+        await create_log(db, start, end, tmp[0], description, True)
+        return {"msg" : "admin-addlogsuccess"}
+    else:
+        await create_log(db, start, end, tmp[0], description, False)
+        return {"msg" : "notadmin-addlogsuccess"}
 
 @app.get("/users")
 async def users():
