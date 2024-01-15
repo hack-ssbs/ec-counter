@@ -3,7 +3,7 @@ from prisma import Prisma
 from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import HTTPException, status
-from .model import query_users, create_user, query_logs, create_log
+from .model import query_users, create_user, query_logs, create_log, update_log
 from .auth import hash_password, encode_jwt, decode_jwt
 from .model import get_user
 import datetime
@@ -61,11 +61,31 @@ async def logs():
 async def addlog(userID: str,  end: str|None=None, start: str = datetime.datetime.utcnow().replace(microsecond=0, tzinfo=datetime.timezone.utc).isoformat(), description: str  = "N/A"):
     tmp=decode_jwt(userID)
     if(tmp[1] == True):
-        await create_log(db, start, end, tmp[0], description, True)
-        return {"msg" : "admin-addlogsuccess"}
+        res = await create_log(db, start, end, tmp[0], description, True)
+        return {"msg" : "admin-addlogsuccess", "logid" : res.id}
     else:
-        await create_log(db, start, end, tmp[0], description, False)
-        return {"msg" : "notadmin-addlogsuccess"}
+        res = await create_log(db, start, end, tmp[0], description, False)
+        return {"msg" : "notadmin-addlogsuccess", "logid" : res.id}
+
+@app.post("/completelog")
+async def completelog(logID: int, endtime: str = datetime.datetime.utcnow().replace(microsecond=0, tzinfo=datetime.timezone.utc).isoformat()):
+    #update endtime
+    res = await update_log(db, logID, endtime)
+    return {"msg": "Log completed successfully", "log": res}
+
+# @app.get("/mylogs")
+# async def mylogs(userID: str, pw: str):
+#     #get user's logs only
+#     tmp=decode_jwt(userID)
+#     if()
+
+# @app.post("/dellog")
+# async def dellog(userID: str, logID: int):
+#     tmp=decode_jwt(userID)
+#     if(tmp[1] == True):
+
+#     else:
+#         return {"msg" : "FAIL-not admin"}
 
 @app.get("/users")
 async def users():
