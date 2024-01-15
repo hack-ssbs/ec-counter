@@ -41,7 +41,17 @@ async def create_log(db: Prisma, start: str, end: str, userId: str, description:
         })
         return log
 
-async def create_user(db: Prisma, name: str, password: str):
+async def update_log(db: Prisma, logID: int, end: str):
+    updated_log = await db.vhlog.update(
+        where = {"id": logID},
+        data = {"end": end}
+    )
+    if updated_log:
+        return updated_log
+    else:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Log not found.")
+
+async def create_user(db: Prisma, name: str, password: str) :
     # Note: do not pass the password as a plain text, preprocess it with bcrypt
     try:
         user = await db.user.create({
