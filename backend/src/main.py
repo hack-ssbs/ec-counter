@@ -58,8 +58,10 @@ async def logs():
     return resp
 
 @app.post("/addlog")
-async def addlog(userID: str,  end: str|None=None, start: str = datetime.datetime.utcnow().replace(microsecond=0, tzinfo=datetime.timezone.utc).isoformat(), description: str  = "N/A"):
-    tmp=decode_jwt(userID)
+async def addlog(jwt: str,  end: str|None=None, start: str|None = None, description: str  = "N/A"):
+    if start is None:
+        start = datetime.datetime.utcnow().replace(microsecond=0, tzinfo=datetime.timezone.utc).isoformat()
+    tmp=decode_jwt(jwt)
     if(tmp[1] == True):
         res = await create_log(db, start, end, tmp[0], description, True)
         return {"msg" : "admin-addlogsuccess", "logid" : res.id}
@@ -68,7 +70,9 @@ async def addlog(userID: str,  end: str|None=None, start: str = datetime.datetim
         return {"msg" : "notadmin-addlogsuccess", "logid" : res.id}
 
 @app.post("/completelog")
-async def completelog(logID: int, endtime: str = datetime.datetime.utcnow().replace(microsecond=0, tzinfo=datetime.timezone.utc).isoformat()):
+async def completelog(logID: int, endtime: str|None = None):
+    if endtime is None:
+        endtime = datetime.datetime.utcnow().replace(microsecond=0, tzinfo=datetime.timezone.utc).isoformat()
     #update endtime
     res = await update_log(db, logID, endtime)
     return {"msg": "Log completed successfully", "log": res}
