@@ -1,29 +1,20 @@
 import "./sidebar.css";
 import { SidebarData } from "./SidebarData";
+import { Link } from "@tanstack/react-router";
 
 function Bar() {
   return (
     <div className="sidebar basis-1/4 h-screen hidden md:block">
-      <ul className="sidebarList">
+      <div className="sidebarList">
         {SidebarData.map((val, key) => {
           return (
-            <div>
-              <li
-                key={key}
-                className={`row ${
-                  window.location.pathname == val.link ? "active" : ""
-                }`}
-                onClick={() => {
-                  window.location.pathname = val.link;
-                }}
-              >
-                <div className="icon">{val.icon}</div>
-                <div className="title">{val.title}</div>
-              </li>
-            </div>
+            <Link key={key} className="row [&.active]:active" to={val.link}>
+              <div className="icon">{val.icon}</div>
+              <div className="title">{val.title}</div>
+            </Link>
           );
         })}
-      </ul>
+      </div>
     </div>
   );
 }
