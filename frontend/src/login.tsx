@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./login.css";
-
-const API_PATH = "https://api.ecvh.ssbs.club";
+import { API_PATH } from "./api";
+import { toast } from "react-toastify";
 
 const LoginForm: React.FC = () => {
   const [password, setPassword] = useState("");
@@ -18,15 +18,15 @@ const LoginForm: React.FC = () => {
             console.log(data);
             if (data.jwt) {
               data.jwt && localStorage.setItem("jwt", data.jwt);
-              alert("登录成功");
+              toast("登录成功");
               window.location.href = "/";
             } else {
-              alert(data.msg);
+              toast.error(data.msg);
             }
           });
         } else {
           res.json().then((data) => {
-            alert(data.detail);
+            toast.error(data.detail);
           });
         }
       }
