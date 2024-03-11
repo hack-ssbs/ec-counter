@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./login.css";
 import { API_PATH } from "./api";
 import { toast } from "react-toastify";
+import { useRouter } from "@tanstack/react-router";
 
 const LoginForm: React.FC = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [authcode, setAuthcode] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const router = useRouter();
 
   const do_login = () => {
     fetch(`${API_PATH}/login?name=${username}&password=${password}`).then(
@@ -18,8 +20,8 @@ const LoginForm: React.FC = () => {
             console.log(data);
             if (data.jwt) {
               data.jwt && localStorage.setItem("jwt", data.jwt);
-              toast("登录成功");
-              window.location.href = "/";
+              toast("Login success!");
+              router.navigate({ to: "/" });
             } else {
               toast.error(data.msg);
             }
