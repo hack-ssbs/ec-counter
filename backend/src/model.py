@@ -17,6 +17,10 @@ async def query_logs(db: Prisma):
     logs=await db.vhlog.find_many()
     return logs
 
+async def query_user_logs(db: Prisma, user_id: str):
+    logs=await db.vhlog.find_many(where={"userId": user_id})
+    return logs
+
 async def log_exists(db: Prisma, start: str, end: str, userId: str, description: str) ->bool:
     existing_log = await db.vhlog.find_first(
         where={
@@ -41,9 +45,9 @@ async def create_log(db: Prisma, start: str, end: str, userId: str, description:
         })
         return log
 
-async def update_log(db: Prisma, logID: int, end: str):
+async def update_log(db: Prisma, logID: int, end: str, user_id: str, is_admin: bool):
     updated_log = await db.vhlog.update(
-        where = {"id": logID},
+        where = {"id": logID} if is_admin else {"id": logID, "userId": user_id},
         data = {"end": end}
     )
     if updated_log:

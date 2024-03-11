@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import HTTPException, status
 from .model import query_users, create_user, query_logs, create_log, update_log
 from .auth import hash_password, encode_jwt, decode_jwt
-from .model import get_user
+from .model import get_user, query_user_logs
 import datetime
 
 db = Prisma()
@@ -70,18 +70,19 @@ async def addlog(jwt: str,  end: str|None=None, start: str|None = None, descript
         return {"msg" : "notadmin-addlogsuccess", "logid" : res.id}
 
 @app.post("/completelog")
-async def completelog(logID: int, endtime: str|None = None):
+async def completelog(jwt:str, logID: int, endtime: str|None = None):
     if endtime is None:
         endtime = datetime.datetime.utcnow().replace(microsecond=0, tzinfo=datetime.timezone.utc).isoformat()
-    #update endtime
-    res = await update_log(db, logID, endtime)
+    user_id, is_admin = decode_jwt(jwt)
+    res = await update_log(db, logID, endtime, user_id, is_admin)
     return {"msg": "Log completed successfully", "log": res}
 
-# @app.get("/mylogs")
-# async def mylogs(userID: str, pw: str):
-#     #get user's logs only
-#     tmp=decode_jwt(userID)
-#     if()
+@app.get("/mylogs")
+async def mylogs(jwt: str):
+    user_id, _ = decode_jwt(jwt)
+    logs = await query_user_logs(db, user_id)
+    return logs
+    
 
 # @app.post("/dellog")
 # async def dellog(userID: str, logID: int):
@@ -110,11 +111,11 @@ async def register(name: str, password: str):
 
 @app.get("/login")
 async def login(name: str, password: str):
-        """
-        signs in the user and returns a jwt token
-        """
-        user = await get_user(db, name, hash_password(password))
-        if user is None:
-            raise HTTPException(status.HTTP_401_UNAUTHORIZED, "No user with matching username and password found.")
-        else:
-            return {"jwt": encode_jwt(user)}
+    """
+    signs in the user and returns a jwt token
+    """
+    user = await get_user(db, name, hash_password(password))
+    if user is None:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "No user with matching username and password found.")
+    else:
+        return {"jwt": encode_jwt(user)}
