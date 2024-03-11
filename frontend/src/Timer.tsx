@@ -94,9 +94,10 @@ const Timer: React.FC = () => {
       setIsSubmitting(false); // Reset submitting state
       return;
     }
+    let description = prompt("Please enter a description of your work");
     try {
       const response = await fetch(
-        `${API_PATH}/addlog?jwt=${jwt}&start=${start_iso}&end=${end_iso}`,
+        `${API_PATH}/addlog?jwt=${jwt}&start=${start_iso}&end=${end_iso}&description=${description}`,
         {
           method: "POST",
         }
