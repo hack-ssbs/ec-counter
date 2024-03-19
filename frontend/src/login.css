@@ -1,45 +1,74 @@
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-body
-{
-    height: 100vh;
-    background-color: #f2f1ed;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+body {
+  height: 100vh;
+  background-color: #f2f1ed;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.logincontainer{
-    background-color: #fff;
-    width: 650px;
-    height: 415px;
-    border-radius: 5px;
-    box-shadow: 5px 5px 5px rgba(0,0,0,0.1);
-    position: relative;
+.logincontainer {
+  background-color: #fff;
+  width: 650px;
+  height: 415px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
-.form-box{
-    position: absolute;
-    top: -10%;
-    left:5%;
-    background-color: rgb(132, 154, 140);
-    width: 320px;
-    height: 500px;
-    border-radius: 5px;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-    transition: 0.5s ease-in-out;
+.mobile-login-form {
+  display: none;
 }
 
-.register-form{
+@media screen and (max-width: 768px) {
+  .logincontainer {
+    display: none;
+  }
+  .mobile-login-form {
+    display: block;
+  }
+}
+
+.mobile-card.flip {
+  transform: rotateY(180deg);
+}
+
+.form-box {
+  position: absolute;
+  top: -10%;
+  left: 5%;
+  background-color: rgb(132, 154, 140);
+  width: 320px;
+  height: 500px;
+  border-radius: 5px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  transition: 0.5s ease-in-out;
+}
+
+.form-box-mobile {
+  margin: auto;
+  background-color: rgb(132, 154, 140);
+  width: 320px;
+  height: 500px;
+  border-radius: 5px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  transition: 0.5s ease-in-out;
+}
+
+.register-form {
   width: 400px;
   height: 400px;
   /* display: flex; */
@@ -50,61 +79,118 @@ body
   z-index: 100;
 }
 
+.register-form-mobile {
+  width: 400px;
+  height: 400px;
+  /* display: flex; */
+  flex-direction: column;
+  padding: 40px;
+  margin-bottom: 25px;
+  text-align: center;
+  position: relative;
+  z-index: 100;
+}
+
 .login-form {
-    width: 290px;
-    height: 290px;
-    /* display: flex; */
-    flex-direction: column;
-    padding: 40px;
-    text-align: center;
-    position: relative;
-    z-index: 100;
+  width: 290px;
+  height: 290px;
+  /* display: flex; */
+  flex-direction: column;
+  padding: 40px;
+  text-align: center;
+  position: relative;
+  z-index: 100;
+}
+
+.login-form-mobile {
+  width: 290px;
+  height: 290px;
+  /* display: flex; */
+  flex-direction: column;
+  padding: 40px;
+  margin-bottom: 50px;
+  text-align: center;
+  position: relative;
+  z-index: 100;
 }
 
 h2 {
   font-size: 50px;
   font-weight: 500;
-  color: #fff; 
-    margin-top: 0spx;
-    margin-bottom: 50px;
-    text-align: center;
-    font-family: "Eras ITC";
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
+  color: #fff;
+  margin-top: 0spx;
+  margin-bottom: 50px;
+  text-align: center;
+  font-family: "Eras ITC";
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
 }
 
-h3{
+h3 {
   font-size: 50px;
   font-weight: 500;
-  color: #fff; 
-    margin-top: 0px;
-    margin-bottom: 10px;
-    text-align: center;
-    font-family: "Eras ITC";
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+  color: #fff;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-family: "Eras ITC";
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.under {
+  font-size: 13px;
+  font-weight: 400;
+  color: #fff;
+  margin-top: 10px;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+
+.underlogin {
+  font-size: 15px;
+  font-weight: 500;
+  color: #f2dbaa;
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-decoration: underline;
 }
 
 .field {
-  @apply bg-transparent mt-2 border border-green-800 border-opacity-50 rounded-md py-2 px-4 block w-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-white
+  @apply bg-transparent mt-2 border border-green-800 border-opacity-50 rounded-md py-2 px-4 block w-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-white;
 }
 
 .field::placeholder {
   opacity: 70%;
-  @apply text-gray-300
+  @apply text-gray-300;
 }
-
 
 button:focus,
 input:focus {
   outline: solid;
 }
 
+.login-form-mobile button {
+  background-color: white;
+  border: none;
+  border-radius: 4px;
+  height: 50px;
+  width: 200px;
+  color: rgba(57, 88, 69, 0.4);
+  font-weight: 500;
+  position: center;
+  cursor: pointer;
+  transition: 0.4s;
+  letter-spacing: 2px;
+  margin-top: 20px;
+  color: black;
+}
+
 .login-form button {
   background-color: white;
-  border:none;
+  border: none;
   border-radius: 4px;
-  height: 60px;
+  height: 55px;
   width: 200px;
   color: rgba(57, 88, 69, 0.4);
   font-weight: 500;
@@ -118,9 +204,25 @@ input:focus {
 
 .register-form button {
   background-color: white;
-  border:none;
+  border: none;
   border-radius: 4px;
-  height: 60px;
+  height: 55px;
+  width: 270px;
+  color: rgba(57, 88, 69, 0.4);
+  font-weight: 500;
+  position: center;
+  cursor: pointer;
+  transition: 0.4s;
+  letter-spacing: 2px;
+  margin-top: 20px;
+  color: black;
+}
+
+.register-form-mobile button {
+  background-color: white;
+  border: none;
+  border-radius: 4px;
+  height: 50px;
   width: 270px;
   color: rgba(57, 88, 69, 0.4);
   font-weight: 500;
@@ -137,63 +239,96 @@ input:focus {
   font-weight: 500;
 }
 
+.login-form-mobile button:hover {
+  background-color: #fff;
+  font-weight: 500;
+}
 
 .register-form button:hover {
   background-color: #fff;
   font-weight: 500;
 }
 
-.con-box{
-    width: 50%;
-    display: flex;  
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+.register-form-mobile button:hover {
+  background-color: #fff;
+  font-weight: 500;
 }
-.logincontainer .left{
-    left: -2%;
+
+.con-box {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
-.logincontainer .right{
-    right: -2%;
+.logincontainer .left {
+  left: -2%;
 }
-.con-box h2{
-    color: #8eaf91;
-    font-size: 25px;
-    font-weight: bold;
-    letter-spacing: 3px;
-    text-align: center;
-    margin-bottom: 4px;
+.logincontainer .right {
+  right: -2%;
 }
-.con-box p{
-    font-size: 12px;
-    letter-spacing: 2px;
-    color: #8e9aaf;
-    text-align: center;
+.con-box h2 {
+  color: #8eaf91;
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-align: center;
+  margin-bottom: 4px;
 }
-.con-box span{
-    color: #d3b7d8;
+.con-box p {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #8e9aaf;
+  text-align: center;
 }
-.con-box img{
-    width: 150px;
-    height: 150px;
-    opacity: 0.9;
-    margin: 40px 0;
+.con-box span {
+  color: #d3b7d8;
 }
-.con-box button{
-    margin-top: 3%;
-    background-color: #fff;
-    color: #4d8561;
-    border: 1px solid #b7d8c1;
-    padding: 6px 10px;
-    border-radius: 5px;
-    letter-spacing: 1px;
-    outline: none;
-    cursor: pointer;
+.con-box img {
+  width: 150px;
+  height: 150px;
+  opacity: 0.9;
+  margin: 40px 0;
 }
-.con-box button:hover{
-    background-color: #b7d8bf;
-    color: #fff;
+.con-box button {
+  margin-top: 3%;
+  background-color: #fff;
+  color: #4d8561;
+  border: 1px solid #b7d8c1;
+  padding: 5px 10px;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  outline: none;
+  cursor: pointer;
+  
+}
+.con-box button:hover {
+  background-color: #b7d8bf;
+  color: #fff;
+}
+
+/* Flip */
+.flip-container {
+ perspective: 1000px;
+}
+
+.flipper {
+  transition: 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flipped {
+  transform: rotateY(180deg);
+}
+
+.mobile-card-front,
+.mobile-card-back {
+  backface-visibility: hidden;
+}
+
+.mobile-card-back {
+  transform: rotateY(180deg);
 }

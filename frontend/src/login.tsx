@@ -11,6 +11,12 @@ const LoginForm: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const router = useRouter();
 
+  const [isRegister, setIsRegister] = useState(false);
+
+  const toggleForm = () =>{
+    setIsRegister(!isRegister);
+  }
+
   const do_login = () => {
     fetch(`${API_PATH}/login?name=${username}&password=${password}`).then(
       (res) => {
@@ -70,6 +76,7 @@ const LoginForm: React.FC = () => {
     const login_box = document.getElementsByClassName(
       "login-form"
     )[0] as HTMLElement;
+    
     register.addEventListener("click", () => {
       if (form_box && login_box && register_box) {
         form_box.style.transform = "translateX(80%)";
@@ -85,6 +92,7 @@ const LoginForm: React.FC = () => {
         login_box.classList.remove("hidden");
       }
     });
+
   }, []);
 
   return (
@@ -147,15 +155,79 @@ const LoginForm: React.FC = () => {
         </div>
 
         <div className="con-box left">
-          <h2>欢迎来到</h2>
-          <p>已有帐号</p>
-          <button id="login">去登录</button>
+          <h2>EC VH <br/> Counter</h2>
+          <p>Already have an account?</p>
+          <button id="login">Go Login</button>
         </div>
 
         <div className="con-box right">
-          <h2>欢迎来到</h2>
-          <p>没有账号？</p>
-          <button id="register">去注册</button>
+          <h2>EC VH <br/> Counter</h2>
+          <p>No account?</p>
+          <button id="register">Go Register</button>
+        </div>
+      </div>
+
+      <div className="mobile-login-form flip-container">
+          <div className={`form-box-mobile flipper ${isRegister ? "flipped" : ""}`}>
+          <div className={`register-form-mobile mobile-card-front ${isRegister ? "hidden" : ""}`}>
+            <h3>REGISTER</h3>
+            <input
+              type="text"
+              className="field"
+              placeholder="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              type="password"
+              className="field"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input
+              type="password"
+              className="field"
+              placeholder="confirm password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <input
+              type="text"
+              className="field"
+              placeholder="auth code"
+              value={authcode}
+              onChange={(e) => setAuthcode(e.target.value)}
+            />
+            <button onClick={do_register}>REGISTER</button>
+            <div className="under">
+              Already have an account? <span className="underlogin" onClick={toggleForm}>Login</span>
+            </div>
+          </div>
+
+          <div className={`login-form-mobile mobile-card-back ${isRegister ? "" : "hidden"}`}>
+            <h2>LOGIN</h2>
+            <input
+              type="text"
+              className="field"
+              name="username"
+              placeholder="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              type="password"
+              className="field"
+              name="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button onClick={do_login}>LOGIN</button>
+            <div className="under">
+              No account? <span className="underlogin" onClick={toggleForm}>Register</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

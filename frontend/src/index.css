@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.ml-5 {
+    margin-left: 1.55rem;
+}
