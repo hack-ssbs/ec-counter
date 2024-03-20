@@ -54,7 +54,7 @@ const LoginForm: React.FC = () => {
     ).then((res) => {
       console.log(res);
       if (res.status === 200) {
-        alert("注册成功");
+        toast("Register Success!");
       } else {
         res.json().then((data) => {
           console.error(data);

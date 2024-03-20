@@ -118,7 +118,7 @@ const Timer: React.FC = () => {
 
   return (
     <div>
-      <h2 className="text-2xl text-black font-semibold">Energy Club</h2>
+      <h2 className="text-2xl text-black pt-10 font-semibold">Energy Club</h2>
       <h1 className="text-3xl text-black font-normal">Volunteer Hour Counter</h1>
       <div className="clock-container flex">
         <div className="clock-col flex-1">

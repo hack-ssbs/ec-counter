@@ -9,7 +9,7 @@ const Account = () => {
             Account
           </span>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/2 mx-auto mt-5"
+            className="bg-green-800 hover:bg-green-800 text-white font-bold py-2 px-4 rounded w-1/2 mx-auto mt-5"
             onClick={() => {
               window.localStorage.removeItem("jwt");
               window.localStorage.removeItem("startTime");
