@@ -62,6 +62,16 @@ async def update_log(db: Prisma, logID: int, end: str, user_id: str, is_admin: b
     else:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Log not found.")
 
+async def verify_log(db: Prisma, logID: int):
+    log = await db.vhlog.update(
+        where = {"id": logID},
+        data = {"verified": True}
+    )
+    if log:
+        return log
+    else:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Log not found.")
+
 async def create_user(db: Prisma, name: str, password: str) :
     # Note: do not pass the password as a plain text, preprocess it with bcrypt
     try:

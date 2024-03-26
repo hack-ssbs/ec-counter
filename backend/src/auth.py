@@ -41,11 +41,13 @@ def encode_jwt(usr: User):
         algorithm="HS256"
     )
 
-def decode_jwt(encoded: str) -> (str, bool):
+def decode_jwt(encoded: str, force_admin: bool = False) -> (str, bool):
     try:
         decoded = jwt.decode(encoded, JWT_SECRET, algorithms=["HS256"])
         if not ("user_id" in decoded and "is_admin" in decoded):
             raise HTTPException(status.HTTP_400_BAD_REQUEST, "the required fields of user_id or is_admin is not present in provided JWT!")
+        if force_admin and not decoded["is_admin"]:
+            raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Admin privileges required.")
         return decoded["user_id"], decoded["is_admin"]
     except InvalidSignatureError:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Invalid Signature for JWT!")

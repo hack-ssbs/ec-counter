@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import HTTPException, status
 from .model import query_users, create_user, query_logs, create_log, update_log
 from .auth import hash_password, encode_jwt, decode_jwt
-from .model import get_user, query_user_logs, query_log
+from .model import get_user, query_user_logs, query_log, verify_log
 import datetime
 
 db = Prisma()
@@ -44,8 +44,8 @@ async def pong():
     return {"message": "pong"}
 
 @app.get("/logs")
-async def logs():
-    #get a list of logs
+async def logs(jwt: str):
+    decode_jwt(jwt, True)
     logs = await query_logs(db)
     resp = list(map(lambda vhlog: {
         "user_id": vhlog.userId,
@@ -81,6 +81,12 @@ async def addlog(jwt: str,  end: str|None=None, start: str|None = None, descript
         res = await create_log(db, start, end, tmp[0], description, False)
         return {"msg" : "notadmin-addlogsuccess", "logid" : res.id}
 
+@app.post("/verifylog")
+async def verifylog(jwt: str, logID: int):
+    decode_jwt(jwt, True)
+    res = await verify_log(db, logID)
+    return {"msg": "Log verified successfully", "log": res}
+
 @app.post("/completelog")
 async def completelog(jwt:str, logID: int, endtime: str|None = None):
     if endtime is None:
@@ -95,14 +101,6 @@ async def mylogs(jwt: str):
     logs = await query_user_logs(db, user_id)
     return logs
     
-
-# @app.post("/dellog")
-# async def dellog(userID: str, logID: int):
-#     tmp=decode_jwt(userID)
-#     if(tmp[1] == True):
-
-#     else:
-#         return {"msg" : "FAIL-not admin"}
 
 @app.get("/users")
 async def users():
