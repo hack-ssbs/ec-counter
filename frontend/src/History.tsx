@@ -82,11 +82,11 @@ export const History: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <span className="text-2xl font-semibold mb-4">
+    <div className="container mx-auto p-5">
+      <span className="pl-2 pt-4 text-2xl font-semibold mb-4">
         Your Volunteer Hour Log
       </span>
-      <p className="mx-3 block">
+      <p className="mx-3 block py-4">
         Total VH:{" "}
         <span className="font-semibold">
           {shortEnglishHumanizer(
@@ -98,7 +98,7 @@ export const History: React.FC = () => {
         </span>
       </p>
       {loading ? (
-        <p>Loading...</p>
+        <p className="pl-2">Loading...</p>
       ) : (
         <div className="space-y-2 ml-2">
           {logs.map((log, index) => (
@@ -118,13 +118,15 @@ export const History: React.FC = () => {
           ))}
         </div>
       )}
-      <button
-        onClick={fetchData}
-        disabled={loading}
-        className="mt-4 bg-green-800 hover:bg-green-800 text-white font-bold py-2 px-4 rounded"
-      >
-        Refresh
-      </button>
+      <div className="pl-2">
+        <button
+          onClick={fetchData}
+          disabled={loading}
+          className="mt-4 bg-green-800 hover:bg-green-800 text-white font-bold py-2 px-4 rounded"
+        >
+          Refresh
+        </button>
+        </div>
     </div>
   );
 };

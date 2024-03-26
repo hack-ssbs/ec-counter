@@ -1,6 +1,7 @@
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import TimerIcon from "@material-ui/icons/Timer";
 import HistoryIcon from "@material-ui/icons/History";
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 
 export const SidebarData = [
   {
@@ -14,8 +15,14 @@ export const SidebarData = [
     link: "/history",
   },
   {
+    title: "Admin",
+    icon: <SupervisorAccountIcon />,
+    link: "/admin",
+  },
+  {
     title: "Account",
     icon: <AccountCircleIcon />,
     link: "/account",
-  },
+  }
+
 ];

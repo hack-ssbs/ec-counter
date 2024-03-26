@@ -1,0 +1,47 @@
+.adminpanel li a {
+  position: relative;
+  transition: font-size 0.4s ease, color 0.4s ease;
+}
+
+.adminpanel li a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 3px;
+  width: 0%;
+  height: 2px;
+  background-color: #276749;
+  transition: width 0.4s ease;
+}
+
+.adminpanel li a:hover {
+  color: green-800;
+}
+
+.adminpanel li a:hover::after,
+.adminpanel li a.selected::after {
+  bottom: 3px;
+  width: 100%;
+}
+
+.adminpanel li a.selected {
+  font-weight: bold; /* 设置选中时的字体加粗 */
+}
+
+@media screen and (max-width: 768px) {
+  .adminpanel {
+    position: fixed;
+    top: 1rem;
+    width: 100%;
+    z-index: 999;
+  }
+
+  .navsize {
+    font-size: 0.9rem;
+  }
+
+
+  .adminpanel li {
+    display: inline-block; /* 让导航项水平排列 */
+  }
+}

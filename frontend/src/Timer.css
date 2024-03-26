@@ -9,16 +9,27 @@ body {
 }
 
 h1 {  
-  margin: auto;
   text-align: center;
   font-family: "Eras ITC";
   text-transform: uppercase;
   font-weight: 300;
-  font-size: 2em;
+  font-size: 400px;
 }
 
+@media screen and (min-width: 768px) {
+  .justify-center {
+    padding-left: 2rem; /* 在网页状态下添加左边距 */
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .justify-center {
+    padding: 1rem; /* 在手机状态下添加 padding */
+  }
+}
+
+
 h2 {  
-  margin: auto;
   text-align: center;
   font-family: "Eras ITC";
   text-transform: uppercase;

@@ -1,5 +1,4 @@
 import { RouterProvider, createRouter } from "@tanstack/react-router";
-import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { routeTree } from "./routeTree.gen";
