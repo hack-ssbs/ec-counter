@@ -1,29 +1,8 @@
 import React, { useState } from "react";
 import "./admin.css";
-
-interface VHStatistic {
-  userId: string;
-  activityId: string;
-  VHLength: number;
-}
-
-interface VHSubmission {
-  userId: string;
-  submissionMethod: string; // e.g., "计时提交" or "手动输入提交"
-  approved: boolean;
-}
-
-const StatsPage: React.FC = () => {
-  return <div>Stats Page Content</div>;
-};
-
-const ApprovalsPage: React.FC = () => {
-  return <div>Approvals Page Content</div>;
-};
-
-const SettingsPage: React.FC = () => {
-  return <div>Settings Page Content</div>;
-};
+import StatsPage from "./components/statspage";
+import ApprovalsPage from "./components/approvalspage";
+import SettingsPage from "./components/settingspage";
 
 const AdminPanel: React.FC = () => {
   const [selectedPill, setSelectedPill] = useState<string>("Stats");
