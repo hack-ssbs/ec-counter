@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import HTTPException, status
 from .model import query_users, create_user, query_logs, create_log, update_log
 from .auth import hash_password, encode_jwt, decode_jwt
-from .model import get_user, query_user_logs
+from .model import get_user, query_user_logs, query_log
 import datetime
 
 db = Prisma()
@@ -56,6 +56,18 @@ async def logs():
         "verified": vhlog.verified
     }, logs))
     return resp
+
+@app.get("/log/{log_id}")
+async def log(log_id: int):
+    log = await query_log(db, log_id)
+    return {
+        "user_id": log.userId,
+        "log_id": log.id,
+        "start_time": log.start,
+        "end_time": log.end,
+        "description": log.description,
+        "verified": log.verified
+    }
 
 @app.post("/addlog")
 async def addlog(jwt: str,  end: str|None=None, start: str|None = None, description: str  = "N/A"):
