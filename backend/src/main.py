@@ -128,4 +128,4 @@ async def login(name: str, password: str):
     if user is None:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "No user with matching username and password found.")
     else:
-        return {"jwt": encode_jwt(user)}
+        return {"jwt": encode_jwt(user), "is_admin": user.is_admin}
