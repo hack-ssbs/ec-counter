@@ -17,6 +17,13 @@ async def query_logs(db: Prisma):
     logs=await db.vhlog.find_many()
     return logs
 
+async def query_log(db: Prisma, log_id: int):
+    log = await db.vhlog.find_first(where={"id": log_id})
+    if log:
+        return log
+    else:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Log not found.")
+
 async def query_user_logs(db: Prisma, user_id: str):
     logs=await db.vhlog.find_many(where={"userId": user_id})
     return logs
