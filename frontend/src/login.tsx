@@ -26,6 +26,7 @@ const LoginForm: React.FC = () => {
             console.log(data);
             if (data.jwt) {
               data.jwt && localStorage.setItem("jwt", data.jwt);
+              data.is_admin && localStorage.setItem("is_admin", data.is_admin);
               toast("Login success!");
               router.navigate({ to: "/" });
             } else {
