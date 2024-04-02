@@ -1,5 +1,4 @@
 datasource db {
-  // could be postgresql or mysql
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
@@ -11,19 +10,19 @@ generator db {
 }
 
 model User {
-  id         String   @id @default(cuid())
-  username   String   @unique
-  password   String
-  is_admin   Boolean  @default(false)
-  logs       VhLog[]
+  id       String  @id @default(cuid())
+  username String  @unique
+  password String
+  is_admin Boolean @default(false)
+  logs     VhLog[]
 }
 
 model VhLog {
-    id Int @id @default(autoincrement())
-    start DateTime
-    end DateTime?
-    userId String
-    description String?
-    user User @relation(fields: [userId], references: [id])
-    verified Boolean @default(false)
+  id          Int       @id @default(autoincrement())
+  start       DateTime
+  end         DateTime?
+  userId      String
+  description String?
+  user        User      @relation(fields: [userId], references: [id])
+  verified    Boolean   @default(false)
 }

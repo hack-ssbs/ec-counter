@@ -12,6 +12,7 @@ from prisma.models import User
 from prisma.models import VhLog
 from prisma.errors import UniqueViolationError
 from fastapi import HTTPException, status
+from dotenv import load_dotenv
 
 async def query_logs(db: Prisma):
     logs=await db.vhlog.find_many()
@@ -100,12 +101,41 @@ async def set_admin(db: Prisma, username: str) -> bool:
     )
     return res is not None
 
+async def get_stats(db: Prisma):
+    results = await db.query_raw(
+        '''
+        SELECT
+            u.username,
+            SUM(EXTRACT(EPOCH FROM (v.end - v.start)) / 3600) AS total_hours
+        FROM
+            "User" u
+        JOIN
+            "VhLog" v ON u.id = v."userId"
+        WHERE
+            v.end IS NOT NULL
+        GROUP BY
+            u.id, u.username
+        ORDER BY
+            total_hours DESC;
+        '''
+    )
+    return results
+
 async def tst_main():
     db = Prisma()
     await db.connect()
-    res = await set_admin(db, "jettchen")
+    res = await get_stats(db)
     print(res)
+    for r in res:
+        print(r)
     await db.disconnect()
+
+def get_results():
+    db = Prisma()
+    asyncio.run(db.connect())
+    res = asyncio.run(get_stats(db))
+    asyncio.run(db.disconnect())
+    return res
 
 if __name__ == "__main__":
     asyncio.run(tst_main())

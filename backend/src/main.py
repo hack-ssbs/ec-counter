@@ -1,11 +1,11 @@
+from typing import Optional
 from fastapi import FastAPI
 from prisma import Prisma
 from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import HTTPException, status
-from .model import query_users, create_user, query_logs, create_log, update_log
+from .model import query_users, create_user, create_log, update_log, query_logs, get_user, query_user_logs, query_log, verify_log, get_stats
 from .auth import hash_password, encode_jwt, decode_jwt
-from .model import get_user, query_user_logs, query_log, verify_log
 import datetime
 
 db = Prisma()
@@ -56,6 +56,12 @@ async def logs(jwt: str):
         "verified": vhlog.verified
     }, logs))
     return resp
+
+@app.get("/stats")
+async def stats(jwt: str):
+    decode_jwt(jwt, True)
+    res = await get_stats(db)
+    return res
 
 @app.get("/log/{log_id}")
 async def log(log_id: int):
