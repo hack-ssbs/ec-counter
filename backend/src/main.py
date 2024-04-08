@@ -132,4 +132,10 @@ async def login(name: str, password: str):
     if user is None:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "No user with matching username and password found.")
     else:
-        return {"jwt": encode_jwt(user), "is_admin": user.is_admin}
+        return {"jwt": encode_jwt(user), "is_admin": user.is_admin, "username": user.username}
+        
+@app.get("/profile")
+async def profile(jwt: str):
+    user_id, _ = decode_jwt(jwt)
+    user = await query_user(db, user_id)
+    return {"username": user.username, "is_admin": user.is_admin}

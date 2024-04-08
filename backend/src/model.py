@@ -100,6 +100,13 @@ async def query_users(db: Prisma):
     users = await db.user.find_many()
     return users
 
+async def query_user(db: Prisma, user_id: str):
+    user = await db.user.find_first(where={"id": user_id})
+    if user:
+        return user
+    else:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "User not found.")
+
 async def get_user(db: Prisma, username:str, password:str) -> User | None:
     return await db.user.find_first(where={
         "username": username,
