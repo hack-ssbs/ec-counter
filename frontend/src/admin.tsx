@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./admin.css";
-import StatsPage from "./components/StatsPage";
+import StatsPage from "./components/Analytics";
 import ApprovalsPage from "./components/approvalspage";
 import SettingsPage from "./components/settingspage";
 
