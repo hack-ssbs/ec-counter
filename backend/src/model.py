@@ -14,8 +14,14 @@ from prisma.errors import UniqueViolationError
 from fastapi import HTTPException, status
 from dotenv import load_dotenv
 
-async def query_logs(db: Prisma):
-    logs=await db.vhlog.find_many()
+async def query_logs(db: Prisma, unverified: bool = False):
+    filt = {}
+    if unverified:
+        filt.update({"verified": False}) 
+    logs=await db.vhlog.find_many(
+        where=filt,
+        include={"user": True}
+    )
     return logs
 
 async def query_log(db: Prisma, log_id: int):
@@ -63,15 +69,21 @@ async def update_log(db: Prisma, logID: int, end: str, user_id: str, is_admin: b
     else:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Log not found.")
 
-async def verify_log(db: Prisma, logID: int):
-    log = await db.vhlog.update(
-        where = {"id": logID},
-        data = {"verified": True}
+async def verify_logs(db: Prisma, logIDs: list[int]):
+    res = await db.vhlog.update_many(
+        where={"id": {"in": logIDs}},
+        data={"verified": True}
     )
-    if log:
-        return log
+    if res:
+        return res
     else:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Log not found.")
+
+async def delete_logs(db: Prisma, logIDs: list[int]):
+    res = await db.vhlog.delete_many(
+        where={"id": {"in": logIDs}}
+    )
+    return res
 
 async def create_user(db: Prisma, name: str, password: str) :
     # Note: do not pass the password as a plain text, preprocess it with bcrypt
@@ -112,7 +124,7 @@ async def get_stats(db: Prisma):
         JOIN
             "VhLog" v ON u.id = v."userId"
         WHERE
-            v.end IS NOT NULL
+            v.end IS NOT NULL AND v.verified = true
         GROUP BY
             u.id, u.username
         ORDER BY

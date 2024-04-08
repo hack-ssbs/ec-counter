@@ -1,10 +1,11 @@
 from typing import Optional
 from fastapi import FastAPI
 from prisma import Prisma
+from pydantic import BaseModel
 from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import HTTPException, status
-from .model import query_users, create_user, create_log, update_log, query_logs, get_user, query_user_logs, query_log, verify_log, get_stats
+from .model import *
 from .auth import hash_password, encode_jwt, decode_jwt
 import datetime
 
@@ -44,16 +45,17 @@ async def pong():
     return {"message": "pong"}
 
 @app.get("/logs")
-async def logs(jwt: str):
+async def logs(jwt: str, unverified: bool = False):
     decode_jwt(jwt, True)
-    logs = await query_logs(db)
+    logs = await query_logs(db, unverified)
     resp = list(map(lambda vhlog: {
         "user_id": vhlog.userId,
         "log_id": vhlog.id,
         "start_time": vhlog.start,
         "end_time": vhlog.end,
         "description": vhlog.description,
-        "verified": vhlog.verified
+        "verified": vhlog.verified,
+        "username": vhlog.user.username
     }, logs))
     return resp
 
@@ -87,11 +89,22 @@ async def addlog(jwt: str,  end: str|None=None, start: str|None = None, descript
         res = await create_log(db, start, end, tmp[0], description, False)
         return {"msg" : "notadmin-addlogsuccess", "logid" : res.id}
 
-@app.post("/verifylog")
-async def verifylog(jwt: str, logID: int):
+class UpdateLogsRequest(BaseModel):
+    logIDs: list[int]
+    action: str = "verify"
+
+@app.post("/update_logs")
+async def update_logs(jwt: str, request: UpdateLogsRequest):
     decode_jwt(jwt, True)
-    res = await verify_log(db, logID)
-    return {"msg": "Log verified successfully", "log": res}
+    match request.action:
+        case "verify":
+            res = await verify_logs(db, request.logIDs)
+            return {"msg": "Logs verified successfully", "count": res}
+        case "delete":
+            res = await delete_logs(db, request.logIDs)
+            return {"msg": "Logs deleted successfully", "count": res}
+        case _:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, "Invalid action")
 
 @app.post("/completelog")
 async def completelog(jwt:str, logID: int, endtime: str|None = None):
@@ -107,17 +120,6 @@ async def mylogs(jwt: str):
     logs = await query_user_logs(db, user_id)
     return logs
     
-
-@app.get("/users")
-async def users():
-    # get a list of all users, this is a sample usecase of our database model.
-    users = await query_users(db)
-    resp = list(map(lambda user: {
-        "id": user.id,
-        "username": user.username,
-        "is_admin": user.is_admin
-    }, users))
-    return resp
 
 @app.post("/register")
 async def register(name: str, password: str):
