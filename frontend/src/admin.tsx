@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./admin.css";
-import StatsPage from "./components/statspage";
+import StatsPage from "./components/StatsPage";
 import ApprovalsPage from "./components/approvalspage";
 import SettingsPage from "./components/settingspage";
 
 const AdminPanel: React.FC = () => {
-  const [selectedPill, setSelectedPill] = useState<string>("Stats");
+  const [selectedPill, setSelectedPill] = useState<string>("Approvals");
   const handlePillClick = (pillName: string) => {
     setSelectedPill(pillName);
   };

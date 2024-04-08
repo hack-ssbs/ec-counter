@@ -1,42 +1,65 @@
 import React, { useEffect, useState } from "react";
 import { API_PATH } from "../api";
-import { AgGridReact } from "ag-grid-react"; // AG Grid Component
-import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
-import "ag-grid-community/styles/ag-theme-alpine.css"; // Changed to Alpine Theme for a different look
 import humanizeDuration from "humanize-duration";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const StatsPage: React.FC = () => {
   const [statsData, setStatsData] = useState([]);
-  const [columnDefs, setColumnDefs] = useState([
-    { field: "username" },
-    {
-      field: "total_hours",
-      headerName: "Total VH",
-      valueGetter: (params: any) =>
-        humanizeDuration(params.data.total_hours * 3.6e6, {
-          round: true,
-          units: ["h", "m", "s"],
-          largest: 2,
-        }),
-    },
-  ]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch(`${API_PATH}/stats?jwt=${localStorage.getItem("jwt")}`)
       .then((res) => res.json())
       .then((data) => {
         setStatsData(data);
+        setIsLoading(false);
       });
   }, []);
 
+  if (isLoading) {
+    return (
+      <div className="flex flex-col space-y-3">
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[200px]" />
+        <Skeleton className="h-4 w-[200px]" />
+      </div>
+    );
+  }
+
   return (
-    <div className="ag-theme-alpine" style={{ height: 400, width: 600 }}>
-      <h2 className="text-2xl font-bold">User Stats</h2>
-      <AgGridReact
-        rowData={statsData}
-        columnDefs={columnDefs as any}
-        domLayout="autoHeight"
-      />
+    <div>
+      <Table>
+        <TableCaption>VH Statistics</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Username</TableHead>
+            <TableHead>Total VH</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {statsData.map((item: any) => (
+            <TableRow key={item.username}>
+              <TableCell>{item.username}</TableCell>
+              <TableCell>
+                {humanizeDuration(item.total_hours * 3.6e6, {
+                  round: true,
+                  units: ["h", "m", "s"],
+                  largest: 2,
+                })}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </div>
   );
 };

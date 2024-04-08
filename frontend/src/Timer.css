@@ -10,7 +10,6 @@ body {
 
 h1 {  
   text-align: center;
-  font-family: "Eras ITC";
   text-transform: uppercase;
   font-weight: 300;
   font-size: 400px;
@@ -31,7 +30,6 @@ h1 {
 
 h2 {  
   text-align: center;
-  font-family: "Eras ITC";
   text-transform: uppercase;
   font-weight: 400;
   font-size: 1.5em;
@@ -83,14 +81,12 @@ h2 {
 .clock-timer {
   color: #fff;
   font-size: 5rem;
-  font-family: 'Eras ITC';
   text-transform: uppercase;
   position: relative;
 }
 
 .clock-label {
   color: rgba(255, 255, 255, 0.35);
-  font-family: 'Eras ITC';
   text-transform: uppercase;
   font-size: 1.1rem;
 }
@@ -98,7 +94,6 @@ h2 {
 .button-container {
   display: flex;
   justify-content: space-around;
-  font-family: "Eras ITC";
   font-size: 1.4rem;
 }
 .btn{
@@ -109,7 +104,6 @@ h2 {
   color: white;
   position: relative;
   overflow: hidden;
-  font-family: "Eras ITC";
   font-size: 1.4rem;
   cursor: pointer;
   transition: 0.4s;
