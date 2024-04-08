@@ -162,12 +162,6 @@ const Timer: React.FC = () => {
             End
           </button>
         )}
-        <button
-          className="bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded transform transition duration-150 ease-in-out hover:scale-105 focus:outline-none focus:shadow-outline"
-          onClick={resetTimer}
-        >
-          Reset
-        </button>
         {!isRunning && startTime ? (
           <button
             className={`bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded transform transition duration-150 ease-in-out hover:scale-105 focus:outline-none focus:shadow-outline ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`} // Added conditional styling for submitting state
@@ -177,6 +171,12 @@ const Timer: React.FC = () => {
             {isSubmitting ? "Submitting..." : "Submit"}{" "}
           </button>
         ) : null}
+        <button
+          className="bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded transform transition duration-150 ease-in-out hover:scale-105 focus:outline-none focus:shadow-outline"
+          onClick={resetTimer}
+        >
+          Reset
+        </button>
       </div>
     </div>
   );
