@@ -3,15 +3,6 @@
   padding: 0;
 }
 
-body {
-  height: 100vh;
-  background-color: #f2f1ed;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .logincontainer {
   background-color: #fff;
   width: 650px;
@@ -19,6 +10,9 @@ body {
   border-radius: 5px;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .mobile-login-form {
@@ -114,24 +108,27 @@ body {
   z-index: 100;
 }
 
-h2 {
+.login-body h2 {
   font-size: 50px;
   font-weight: 500;
   color: #fff;
   margin-top: 0spx;
   margin-bottom: 50px;
   text-align: center;
+  font-family: "Eras ITC";
   text-transform: uppercase;
   letter-spacing: 0.2em;
 }
 
-h3 {
+.login-body h3 {
   font-size: 50px;
   font-weight: 500;
   color: #fff;
   margin-top: 0px;
   margin-bottom: 10px;
   text-align: center;
+  font-family: "Eras ITC";
+  text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
@@ -162,8 +159,8 @@ h3 {
   @apply text-gray-300;
 }
 
-button:focus,
-input:focus {
+.login-body button:focus,
+.login-body input:focus {
   outline: solid;
 }
 

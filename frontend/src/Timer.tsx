@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Timer.css";
 import { API_PATH } from "./api";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 const Timer: React.FC = () => {
   const [startTime, setStartTime] = useState<number | null>(
@@ -60,7 +60,7 @@ const Timer: React.FC = () => {
   };
 
   useEffect(() => {
-    let intervalId: number;
+    let intervalId: NodeJS.Timeout;
 
     if (isRunning) {
       intervalId = setInterval(() => {
@@ -117,9 +117,13 @@ const Timer: React.FC = () => {
   };
 
   return (
-    <div className="justify-center">
-      <h2 className="text-2xl text-black pt-10 pb-5 font-semibold">Energy Club</h2>
-      <h1 className="text-3xl text-black font-normal">Volunteer Hour Counter</h1>
+    <div className="justify-center timer-body p-1 md:pl-8">
+      <h2 className="text-2xl text-black pt-10 font-semibold pb-3">
+        Energy Club
+      </h2>
+      <h1 className="text-3xl text-black font-normal">
+        Volunteer Hour Counter
+      </h1>
       <div className="clock-container flex">
         <div className="clock-col flex-1">
           <p className="clock-hours clock-timer">

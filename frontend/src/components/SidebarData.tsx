@@ -24,5 +24,6 @@ export const SidebarData = [
     title: "Account",
     icon: <AccountCircleIcon />,
     link: "/account",
+    login_free: true,
   },
 ];

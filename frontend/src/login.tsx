@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./login.css";
 import { API_PATH } from "./api";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { useRouter } from "@tanstack/react-router";
 
 const LoginForm: React.FC = () => {
@@ -96,7 +96,7 @@ const LoginForm: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="login-body">
       <div className="logincontainer mt-32 mx-auto">
         <div className="form-box">
           <div className="register-form hidden">

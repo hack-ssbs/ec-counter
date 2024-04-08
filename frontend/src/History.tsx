@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { API_PATH } from "./api";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import humanizeDuration from "humanize-duration";
 
 type TimeLog = {
@@ -126,7 +126,7 @@ export const History: React.FC = () => {
         >
           Refresh
         </button>
-        </div>
+      </div>
     </div>
   );
 };

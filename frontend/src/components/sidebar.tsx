@@ -13,6 +13,7 @@ function Bar() {
         {SidebarData.map((val, key) => {
           if (val.require_admin && !localStorage.getItem("is_admin"))
             return null;
+          if (!val.login_free && !localStorage.getItem("jwt")) return null;
           return (
             <Link
               key={key}

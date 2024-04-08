@@ -1,15 +1,17 @@
+import { Button } from "./components/ui/button";
 import LoginForm from "./login";
 
 const Account = () => {
   return (
     <>
       {window.localStorage.getItem("jwt") ? (
-        <div className="flex flex-col container">
+        <div className="flex flex-col container max-w-52 m-auto">
           <span className="text-3xl text-black block text-center mt-10">
             Account
           </span>
-          <button
-            className="bg-green-800 hover:bg-green-800 text-white font-bold py-2 px-4 rounded w-1/2 mx-auto mt-5"
+          <Button
+            className="max-w-72 m-auto mt-10"
+            variant={"destructive"}
             onClick={() => {
               window.localStorage.removeItem("jwt");
               window.localStorage.removeItem("startTime");
@@ -18,7 +20,7 @@ const Account = () => {
             }}
           >
             Logout
-          </button>
+          </Button>
         </div>
       ) : (
         <LoginForm />

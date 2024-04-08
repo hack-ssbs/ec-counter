@@ -82,12 +82,8 @@ async def addlog(jwt: str,  end: str|None=None, start: str|None = None, descript
     if start is None:
         start = datetime.datetime.utcnow().replace(microsecond=0, tzinfo=datetime.timezone.utc).isoformat()
     tmp=decode_jwt(jwt)
-    if(tmp[1] == True):
-        res = await create_log(db, start, end, tmp[0], description, True)
-        return {"msg" : "admin-addlogsuccess", "logid" : res.id}
-    else:
-        res = await create_log(db, start, end, tmp[0], description, False)
-        return {"msg" : "notadmin-addlogsuccess", "logid" : res.id}
+    res = await create_log(db, start, end, tmp[0], description, False)
+    return {"msg" : "Add Log Success", "logid" : res.id}
 
 class UpdateLogsRequest(BaseModel):
     logIDs: list[int]

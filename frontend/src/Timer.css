@@ -1,46 +1,26 @@
-body {
-  /* background: linear-gradient(45deg, #1870ed 0, #f18f88 100%); */
-  /* 自选颜色 */
-  background-color: #f2f1ed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
-h1 {  
+.timer-body h1 {  
   text-align: center;
+  font-family: "Eras ITC";
   text-transform: uppercase;
   font-weight: 300;
-  font-size: 400px;
-}
-
-@media screen and (min-width: 768px) {
-  .justify-center {
-    padding-left: 2rem; /* 在网页状态下添加左边距 */
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .justify-center {
-    padding: 1rem; /* 在手机状态下添加 padding */
-  }
+  font-size: 3em;
 }
 
 
-h2 {  
+.timer-body h2 {  
   text-align: center;
+  font-family: "Eras ITC";
   text-transform: uppercase;
   font-weight: 400;
   font-size: 1.5em;
 }
 
-.strong {
+.timer-body .strong {
   font-weight: 400;
   color: #414141;
 }
 
-.clock-container {
+.timer-body .clock-container {
   margin-top: 45px;
   margin-bottom: 30px;
   /* background-color: #080808; */
@@ -51,14 +31,14 @@ h2 {
   display: flex;
 }
 
-.clock-col {
+.timer-body .clock-col {
   text-align: center;
   @apply mx-5 lg:mx-10;
   position: relative;
 }
 
-.clock-col:not(:last-child):before,
-.clock-col:not(:last-child):after {
+.timer-body .clock-col:not(:last-child):before,
+.timer-body .clock-col:not(:last-child):after {
   content: '';
   background-color: rgba(255, 255, 255, 0.3);
   height: 5px;
@@ -70,33 +50,36 @@ h2 {
   @apply hidden lg:block;
 }
 
-.clock-col:not(:last-child):before {
+.timer-body .clock-col:not(:last-child):before {
   top: 38%;
 }
 
-.clock-col:not(:last-child):after {
+.timer-body .clock-col:not(:last-child):after {
   top: 48%;
 }
 
-.clock-timer {
+.timer-body .clock-timer {
   color: #fff;
   font-size: 5rem;
+  font-family: 'Eras ITC';
   text-transform: uppercase;
   position: relative;
 }
 
-.clock-label {
+.timer-body .clock-label {
   color: rgba(255, 255, 255, 0.35);
+  font-family: 'Eras ITC';
   text-transform: uppercase;
   font-size: 1.1rem;
 }
 
-.button-container {
+.timer-body .button-container {
   display: flex;
   justify-content: space-around;
+  font-family: "Eras ITC";
   font-size: 1.4rem;
 }
-.btn{
+.timer-body .btn{
   /* margin-top: 20px; */
   display: flex;
   border:none;
@@ -104,6 +87,7 @@ h2 {
   color: white;
   position: relative;
   overflow: hidden;
+  font-family: "Eras ITC";
   font-size: 1.4rem;
   cursor: pointer;
   transition: 0.4s;
